@@ -72,7 +72,7 @@ layback(MyClass) <span class="pl-c">// At this pont I have data access, observer
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h1>
 
 <h2>
-<a id="applying-layback-to-you-function-objects" class="anchor" href="#applying-layback-to-you-function-objects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Applying layback to you Function Objects</h2>
+<a id="applying-layback-to-your-functions" class="anchor" href="#applying-layback-to-your-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Applying layback to your functions</h2>
 
 <p>There are two ways to apply the layback features to your function.</p>
 
@@ -108,6 +108,21 @@ creature.get(<span class="pl-s1"><span class="pl-pds">'</span>stamina<span class
 }).make();
 <span class="pl-c">//...</span></pre></div>
 
+<h4>
+<a id="accessing-layback-features-of-a-function-that-already-uses-layback" class="anchor" href="#accessing-layback-features-of-a-function-that-already-uses-layback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accessing layback features of a function that already uses layback</h4>
+
+<div class="highlight highlight-javascript"><pre>layback(Creature); <span class="pl-c">// =&gt; Layback object for the class</span>
+Creature.layback(); <span class="pl-c">// Alternative way of getting it</span>
+<span class="pl-c">//...</span></pre></div>
+
+<h4>
+<a id="accessing-layback-features-of-an-object-that-already-uses-layback" class="anchor" href="#accessing-layback-features-of-an-object-that-already-uses-layback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accessing layback features of an object that already uses layback</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> cat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+layback(cat) <span class="pl-c">// =&gt; Layback object for the object</span>
+cat.layback() <span class="pl-c">// Alternative way of getting it</span>
+<span class="pl-c">//...</span></pre></div>
+
 <h2>
 <a id="data-handling" class="anchor" href="#data-handling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data handling</h2>
 
@@ -116,7 +131,7 @@ creature.get(<span class="pl-s1"><span class="pl-pds">'</span>stamina<span class
 <h3>
 <a id="setting-the-default-data" class="anchor" href="#setting-the-default-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting the default data</h3>
 
-<p>The default data sets defaults values to all the data accessable inside the object. You can do it by calling the <code>setDefaults</code> function while adding the layout features.</p>
+<p>The default data sets defaults values to all the data accessable inside the object. You can do it by calling the <code>setDefaults</code> function while adding the layback features.</p>
 
 <div class="highlight highlight-javascript"><pre>layback(<span class="pl-s1"><span class="pl-pds">'</span>Creature<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">properties</span>) {
 <span class="pl-c">//...</span>
@@ -165,7 +180,7 @@ creature.get(<span class="pl-s1"><span class="pl-pds">'</span>stamina<span class
 <a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example usage</h4>
 
 <div class="highlight highlight-javascript"><pre>layback(<span class="pl-s1"><span class="pl-pds">'</span>Creature<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">properties</span>) {
-    <span class="pl-c">// You can set some defaults here as well, only for the "data" namespace.</span>
+    <span class="pl-c">// You can set/overwrite some default data here as well.</span>
     <span class="pl-c">// It comes in handy when you have to do some pre calculations</span>
     <span class="pl-v">this</span>.laybackData <span class="pl-k">=</span> {
         stamina<span class="pl-k">:</span> <span class="pl-s3">Math</span>.<span class="pl-s3">round</span>(<span class="pl-s3">Math</span>.<span class="pl-s3">random</span>() <span class="pl-k">*</span> <span class="pl-c1">100</span>)
@@ -190,7 +205,7 @@ creature2.get(<span class="pl-s1"><span class="pl-pds">'</span>hunger<span class
 creature2.get(<span class="pl-s1"><span class="pl-pds">'</span>stamina<span class="pl-pds">'</span></span>); <span class="pl-c">// 1..100 random number</span></pre></div>
 
 <h3>
-<a id="event-treat" class="anchor" href="#event-treat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Event treat</h3>
+<a id="event-treat-system" class="anchor" href="#event-treat-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Event treat (system)</h3>
 
 <p>It's a simple observer implementation.</p>
 
@@ -209,9 +224,9 @@ The observerFunction recieves the <code>observee</code> object, and the <code>ev
 <a id="using-default-observers" class="anchor" href="#using-default-observers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using default observers</h4>
 
 <div class="highlight highlight-javascript"><pre>layback(<span class="pl-s1"><span class="pl-pds">'</span>Creature<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">properties</span>) {
-    <span class="pl-c">// You can set some default observers here as well</span>
+    <span class="pl-c">// You can set/overwrite some default observers here as well</span>
     <span class="pl-c">// It comes in handy when you have to do some pre calculations</span>
-    <span class="pl-v">this</span>.laybackObservers <span class="pl-k">=</span> {
+    <span class="pl-v">this</span>.laybackCallbacks <span class="pl-k">=</span> {
         <span class="pl-s1"><span class="pl-pds">'</span>after-stop-walking<span class="pl-pds">'</span></span><span class="pl-k">:</span> {
             <span class="pl-en">toDo</span>: <span class="pl-st">function</span>(<span class="pl-vpf">obj</span>, <span class="pl-vpf">nextAction</span>){<span class="pl-c">// you can add more observers to the same event</span>
                 obj.set(<span class="pl-s1"><span class="pl-pds">'</span>nextAction<span class="pl-pds">'</span></span>, nextAction);
@@ -236,7 +251,7 @@ The observerFunction recieves the <code>observee</code> object, and the <code>ev
     data<span class="pl-k">:</span> {
         legs<span class="pl-k">:</span> <span class="pl-c1">0</span>
     },
-    observers<span class="pl-k">:</span> {
+    callbacks<span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">'</span>after-start-walking<span class="pl-pds">'</span></span><span class="pl-k">:</span> {
             <span class="pl-en">canWalk</span>: <span class="pl-st">function</span>(<span class="pl-vpf">obj</span>, <span class="pl-vpf">data</span>) {
                 <span class="pl-k">if</span> (obj.get(<span class="pl-s1"><span class="pl-pds">'</span>legs<span class="pl-pds">'</span></span>) <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
@@ -270,10 +285,89 @@ cat.get(<span class="pl-s1"><span class="pl-pds">'</span>walking<span class="pl-
 <div class="highlight highlight-javascript"><pre>layback(Creature).make();
 <span class="pl-s">var</span> cat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>({
     legs<span class="pl-k">:</span> <span class="pl-c1">4</span>,
-    <span class="pl-en">onAfterStartWalking</span>: <span class="pl-st">function</span>(<span class="pl-vpf">obj</span>) {
+    <span class="pl-en">onAfterStartWalking</span>: <span class="pl-st">function</span>(<span class="pl-vpf">obj</span>) { <span class="pl-c">// Note that I added 'on' and camelised the event name</span>
         obj.liftTail();
     }
 });</pre></div>
+
+<h3>
+<a id="dom-treat-system" class="anchor" href="#dom-treat-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>DOM treat (system)</h3>
+
+<p>You can access the DOM. <em>It uses jQuery!</em></p>
+
+<h4>
+<a id="added-features-2" class="anchor" href="#added-features-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Added features</h4>
+
+<ul>
+<li>
+<code>dom(elementName [, parentElement])</code>: gives you a DOM element with the given name (passed as a dom data).</li>
+</ul>
+
+<h3>
+<a id="using-dom-via-defaults" class="anchor" href="#using-dom-via-defaults" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using DOM via defaults</h3>
+
+<div class="highlight highlight-javascript"><pre>layback(<span class="pl-s1"><span class="pl-pds">'</span>Creature<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">properties</span>){
+    <span class="pl-c">// Set/overwrite defaults here</span>
+    <span class="pl-v">this</span>.laybackDom <span class="pl-k">=</span> {
+        infoContainer<span class="pl-k">:</span> $(<span class="pl-s1"><span class="pl-pds">"</span>&lt;p class='new-info'&gt;&lt;/p&gt;<span class="pl-pds">"</span></span>).appendTo(<span class="pl-s1"><span class="pl-pds">'</span>body<span class="pl-pds">'</span></span>) <span class="pl-c">// note that now it's a jQuery element, not only a selector</span>
+    }
+    <span class="pl-c">//...</span>
+    <span class="pl-v">this</span>.layback(properties);
+
+    <span class="pl-s3">this</span>.<span class="pl-en">showMood</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">txt</span>) {
+        <span class="pl-v">this</span>.dom(<span class="pl-s1"><span class="pl-pds">'</span>infoContainer<span class="pl-pds">'</span></span>).html(txt);
+    }
+
+    <span class="pl-s3">this</span>.<span class="pl-en">say</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">txt</span>) {
+        <span class="pl-v">this</span>.dom(<span class="pl-s1"><span class="pl-pds">'</span>talkContainer<span class="pl-pds">'</span></span>).append($(<span class="pl-s1"><span class="pl-pds">"</span>&lt;p&gt;<span class="pl-pds">"</span></span> <span class="pl-k">+</span> txt <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;/p&gt;<span class="pl-pds">"</span></span>));
+    }
+}).setDefaults({
+    dom<span class="pl-k">:</span> {
+        infoContainer<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>p.info<span class="pl-pds">'</span></span>,
+        talkContainer<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>.talk<span class="pl-pds">'</span></span>
+    }
+})
+.make();
+<span class="pl-s">var</span> cat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+cat.showMood(<span class="pl-s1"><span class="pl-pds">'</span>The cat is hungry!<span class="pl-pds">'</span></span>); <span class="pl-c">// The text appears in p.new-info</span>
+cat.say(<span class="pl-s1"><span class="pl-pds">'</span>Feed me!<span class="pl-pds">'</span></span>); <span class="pl-c">// The text appears in .talk</span></pre></div>
+
+<h3>
+<a id="using-dom-via-options" class="anchor" href="#using-dom-via-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using DOM via options</h3>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> dog <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>({
+    talkContainerElement<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>.talk-dog<span class="pl-pds">'</span></span> <span class="pl-c">// Note that I added 'Element' after the dom key</span>
+});
+dog.showMood(<span class="pl-s1"><span class="pl-pds">'</span>The dog is sad!<span class="pl-pds">'</span></span>); <span class="pl-c">// The text appears in p.new-info</span>
+cat.say(<span class="pl-s1"><span class="pl-pds">'</span>Play with me!<span class="pl-pds">'</span></span>); <span class="pl-c">// The text appears in .talk-dog</span></pre></div>
+
+<h3>
+<a id="setget-treat-optional" class="anchor" href="#setget-treat-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>SetGet treat (optional)</h3>
+
+<p>The setget treat provides shorthand setters and getters for your object.
+The setters/getters work as explained in the Data treat section.
+<em>It works only with the data provided as default data as well!</em></p>
+
+<h4>
+<a id="example-usage-1" class="anchor" href="#example-usage-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example usage</h4>
+
+<div class="highlight highlight-javascript"><pre>layback(Creature)
+.setDefaults({
+    data<span class="pl-k">:</span> {
+        legs<span class="pl-k">:</span> <span class="pl-c1">4</span>,
+        canSwim<span class="pl-k">:</span> <span class="pl-c1">true</span>
+    }
+})
+.treat(<span class="pl-s1"><span class="pl-pds">'</span>setget<span class="pl-pds">'</span></span>)
+.make();
+
+<span class="pl-s">var</span> fish <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+fish.setLegs(<span class="pl-c1">0</span>);
+fish.getLegs(); <span class="pl-c">// 0</span>
+
+<span class="pl-s">var</span> cat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+cat.setCanSwim(<span class="pl-c1">false</span>);
+cat.getCanSwim(); <span class="pl-c">// false</span></pre></div>
         </section>
 
         <aside id="sidebar">
