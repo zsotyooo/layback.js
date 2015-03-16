@@ -307,13 +307,13 @@ class: left, middle
 var obj = new Creature;
 obj.respondTo('mobile', function(){
     console.log(
-        this.getCurrentBreakpoint()
+        this.getCurrentBreakpoint().name
         + ':' + this.get('renderWidth')
     );
 });
 obj.respondTo('tablet', function(){
     console.log(
-        this.getCurrentBreakpoint()
+        this.getCurrentBreakpoint().name
         + ':' + this.get('renderWidth')
     );
 });
