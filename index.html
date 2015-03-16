@@ -405,10 +405,136 @@ fish.getLegs(); <span class="pl-c">// 0</span>
 <span class="pl-s">var</span> cat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
 cat.setCanSwim(<span class="pl-c1">false</span>);
 cat.getCanSwim(); <span class="pl-c">// false</span></pre></div>
+
+<h3>
+<a id="collection-treat" class="anchor" href="#collection-treat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collection treat</h3>
+
+<p>Adds collection features to your function object.</p>
+
+<h4>
+<a id="added-features-3" class="anchor" href="#added-features-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Added features</h4>
+
+<ul>
+<li>
+<code>addCollectionItem(item)</code>: Adds item(s) to the collection. Accepts any kind of object, array of objects, or jQuery objects</li>
+<li>
+<code>getCollectionItem(index)</code>: Get the item at index position</li>
+<li>
+<code>getCollectionItems()</code>: Retrieves the items</li>
+<li>
+<code>removeCollectionItem(item)</code>: Removes the item from the collection</li>
+<li>
+<code>getCollectionSize()</code>: get the length of the collection</li>
+<li>
+<code>eachCollectionItems(callback)</code>: applies the callback function for each items. See jQuery.each for more info.</li>
+<li>
+<code>grepCollectionItems(checkfunction)</code>: Greps items from the collection. See jQuery.grep for more info.</li>
+<li>
+<code>sliceCollectionItems(begin[, end, callback])</code>: Gets a slice of the collection items from <code>begin</code> to <code>end</code>, and applies <code>callback</code> to them</li>
+<li>
+<code>setPagerLimit(limit)</code>: Sets the pages size.</li>
+<li>
+<code>setPageItems(page)</code>: gets the items at <code>page</code> page.</li>
+</ul>
+
+<h4>
+<a id="example-usage-2" class="anchor" href="#example-usage-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example usage</h4>
+
+<div class="highlight highlight-javascript"><pre>layback(Creature).use(<span class="pl-s1"><span class="pl-pds">'</span>collection<span class="pl-pds">'</span></span>).make();
+
+<span class="pl-s">var</span> obj <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+<span class="pl-c">// You can add Object, Array of Objects, jQuery objects here</span>
+obj.addCollectionItem($(<span class="pl-s1"><span class="pl-pds">'</span>.item<span class="pl-pds">'</span></span>));
+obj.getCollectionItems(); <span class="pl-c">// the items</span>
+obj.getCollectionItemPosition($(<span class="pl-s1"><span class="pl-pds">'</span>.item<span class="pl-pds">'</span></span>)[<span class="pl-c1">2</span>]); <span class="pl-c">// 3</span>
+obj.removeCollectionItem($(<span class="pl-s1"><span class="pl-pds">'</span>.item<span class="pl-pds">'</span></span>)[<span class="pl-c1">1</span>]); <span class="pl-c">// removes the item</span>
+obj.getCollectionSize(); <span class="pl-c">// collection length</span>
+
+obj.eachCollectionItems(<span class="pl-st">function</span>(<span class="pl-vpf">i</span>, <span class="pl-vpf">item</span>){
+    $(item).addClass((i <span class="pl-k">%</span> <span class="pl-c1">2</span>) <span class="pl-k">?</span> <span class="pl-s1"><span class="pl-pds">'</span>odd<span class="pl-pds">'</span></span> <span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>even<span class="pl-pds">'</span></span>);
+}); <span class="pl-c">// adding even and odd casses</span>
+
+obj.grepCollectionItems(<span class="pl-st">function</span>(<span class="pl-vpf">item</span>) {
+  <span class="pl-k">return</span> <span class="pl-k">!</span>$(item).hasClass(<span class="pl-s1"><span class="pl-pds">'</span>even<span class="pl-pds">'</span></span>);
+})); <span class="pl-c">// get every second element</span>
+
+obj.sliceCollectionItems(<span class="pl-c1">30</span>, <span class="pl-c1">40</span>, <span class="pl-st">function</span>(<span class="pl-vpf">i</span>, <span class="pl-vpf">item</span>){
+    $(item).css(<span class="pl-s1"><span class="pl-pds">'</span>background<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>);
+}); <span class="pl-c">// Set red bg to items 30..40</span>
+
+obj.setPagerLimit(<span class="pl-c1">10</span>);
+obj.getPageItems(<span class="pl-c1">2</span>); <span class="pl-c">// get elements 10..20 </span></pre></div>
+
+<h3>
+<a id="responsive-features" class="anchor" href="#responsive-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Responsive features</h3>
+
+<p>Using this treat you can change the data inside the object based the window width breakpoints.
+In addition you can set responders which run only if you are on the defined breakpoint.</p>
+
+<h4>
+<a id="added-features-4" class="anchor" href="#added-features-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Added features</h4>
+
+<ul>
+<li>
+<code>getCurrentBreakpoint()</code>: get the current breakpoint, and width. e.g: {name: 'tablet', width: 760}</li>
+<li>
+<code>respondTo(breakpoint, callback)</code>: Add a <code>callback</code> which only applied when you anter the <code>breakpoint</code> zone.</li>
+</ul>
+
+<h4>
+<a id="example-usage-3" class="anchor" href="#example-usage-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example usage</h4>
+
+<div class="highlight highlight-javascript"><pre>layback(Creature)
+    .defaults({
+        data<span class="pl-k">:</span> {
+            renderWidth<span class="pl-k">:</span> <span class="pl-c1">1000</span>
+        },
+        breakpoints<span class="pl-k">:</span> {
+            mobile<span class="pl-k">:</span> {
+                width<span class="pl-k">:</span> <span class="pl-c1">760</span>, 
+                data<span class="pl-k">:</span> {
+                    renderWidth<span class="pl-k">:</span> <span class="pl-c1">300</span>
+                }
+            },
+            tablet<span class="pl-k">:</span> {
+                width<span class="pl-k">:</span> <span class="pl-c1">980</span>, 
+                data<span class="pl-k">:</span> {
+                    renderWidth<span class="pl-k">:</span> <span class="pl-c1">900</span>
+                }
+            }
+        }
+    })
+    .use(<span class="pl-s1"><span class="pl-pds">'</span>respond<span class="pl-pds">'</span></span>)
+    .make();
+
+<span class="pl-s">var</span> obj <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Creature</span>;
+obj.respondTo(<span class="pl-s1"><span class="pl-pds">'</span>mobile<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(){
+    <span class="pl-en">console</span><span class="pl-s3">.log</span>(
+        <span class="pl-v">this</span>.getCurrentBreakpoint().<span class="pl-sc">name</span>
+        <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span>:<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-v">this</span>.get(<span class="pl-s1"><span class="pl-pds">'</span>renderWidth<span class="pl-pds">'</span></span>)
+    );
+});
+obj.respondTo(<span class="pl-s1"><span class="pl-pds">'</span>tablet<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(){
+    <span class="pl-en">console</span><span class="pl-s3">.log</span>(
+        <span class="pl-v">this</span>.getCurrentBreakpoint().<span class="pl-sc">name</span>
+        <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span>:<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-v">this</span>.get(<span class="pl-s1"><span class="pl-pds">'</span>renderWidth<span class="pl-pds">'</span></span>)
+    );
+});
+<span class="pl-c">// below 760px&gt; mobile:300, above 760px&gt; tablet:900</span></pre></div>
       </section>
 
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-60790087-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
