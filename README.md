@@ -307,3 +307,93 @@ var cat = new Creature;
 cat.setCanSwim(false);
 cat.getCanSwim(); // false
 ```
+
+### Collection treat
+Adds collection features to your function object.
+#### Added features
+* `addCollectionItem(item)`: Adds item(s) to the collection. Accepts any kind of object, array of objects, or jQuery objects
+* `getCollectionItem(index)`: Get the item at index position
+* `getCollectionItems()`: Retrieves the items
+* `removeCollectionItem(item)`: Removes the item from the collection
+* `getCollectionSize()`: get the length of the collection
+* `eachCollectionItems(callback)`: applies the callback function for each items. See jQuery.each for more info.
+* `grepCollectionItems(checkfunction)`: Greps items from the collection. See jQuery.grep for more info.
+* `sliceCollectionItems(begin[, end, callback])`: Gets a slice of the collection items from `begin` to `end`, and applies `callback` to them
+* `setPagerLimit(limit)`: Sets the pages size.
+* `setPageItems(page)`: gets the items at `page` page.
+
+#### Example usage
+```javascript
+layback(Creature).use('collection').make();
+
+var obj = new Creature;
+// You can add Object, Array of Objects, jQuery objects here
+obj.addCollectionItem($('.item'));
+obj.getCollectionItems(); // the items
+obj.getCollectionItemPosition($('.item')[2]); // 3
+obj.removeCollectionItem($('.item')[1]); // removes the item
+obj.getCollectionSize(); // collection length
+
+obj.eachCollectionItems(function(i, item){
+    $(item).addClass((i % 2) ? 'odd' : 'even');
+}); // adding even and odd casses
+
+obj.grepCollectionItems(function(item) {
+  return !$(item).hasClass('even');
+})); // get every second element
+
+obj.sliceCollectionItems(30, 40, function(i, item){
+    $(item).css('background', 'red');
+}); // Set red bg to items 30..40
+
+obj.setPagerLimit(10);
+obj.getPageItems(2); // get elements 10..20 
+```
+
+### Responsive features
+Using this treat you can change the data inside the object based the window width breakpoints.
+In addition you can set responders which run only if you are on the defined breakpoint.
+#### Added features
+* `getCurrentBreakpoint()`: get the current breakpoint, and width. e.g: {name: 'tablet', width: 760}
+* `respondTo(breakpoint, callback)`: Add a `callback` which only applied when you anter the `breakpoint` zone.
+
+#### Example usage
+```javascript
+layback(Creature)
+    .defaults({
+        data: {
+            renderWidth: 1000
+        },
+        breakpoints: {
+            mobile: {
+                width: 760, 
+                data: {
+                    renderWidth: 300
+                }
+            },
+            tablet: {
+                width: 980, 
+                data: {
+                    renderWidth: 900
+                }
+            }
+        }
+    })
+    .use('respond')
+    .make();
+
+var obj = new Creature;
+obj.respondTo('mobile', function(){
+    console.log(
+        this.getCurrentBreakpoint().name
+        + ':' + this.get('renderWidth')
+    );
+});
+obj.respondTo('tablet', function(){
+    console.log(
+        this.getCurrentBreakpoint().name
+        + ':' + this.get('renderWidth')
+    );
+});
+// below 760px> mobile:300, above 760px> tablet:900
+```
