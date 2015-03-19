@@ -5,18 +5,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
       @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(http://fonts.googleapis.com/css?family=Lato);
       @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(http://fonts.googleapis.com/css?family=Berkshire+Swash);
 
-      body { font-family: 'Droid Serif'; }
+      body { font-family: 'Lato'; }
       h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
+        font-family: 'Berkshire Swash';
         font-weight: normal;
+        text-shadow: -4px 0px 0px #a39a4a;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       
       .remark-container{
-          background: #282828;
+          background: #31384d;
       }
 
       .remark-slide-scaler{
@@ -26,8 +28,9 @@
       }
 
       .remark-slide-content {
-          background-color:#282828;
+          background-color:#31384d;
           color:#f8f8f2;
+          font-size: 28px;
       }
 
       .remark-slide-content a {
@@ -35,15 +38,15 @@
       }
 
       .remark-slide-content h1 {
-          color:#F92672;
+          color:#f4f5c6;
       }
 
       .remark-slide-content h2 {
-          color:#A6E22E;
+          color:#f4f5c6;
       }
 
       .remark-slide-content h3 {
-          color:#66D9EF;
+          color:#f4f5c6;
       }
 
     </style>
@@ -73,45 +76,29 @@ class: center, top
 
 # Problems in everyday work
 
---
+I should be able to somehow pass settings to my object...
 
-* I should be able to somehow pass settings to my object...
+Reaching the dom objects would be nice...
 
---
+I should be able to use callback...
 
-* Reaching the dom objects would be nice...
+I can make it as a jQuery plugin with some extra work...
 
---
+I have items inside...
 
-* I should be able to use callback...
-
---
-
-* I can make it as a jQuery plugin with some extra work...
-
---
-
-* I have items inside...
-
---
-
-* Oh, it should work a different way on mobile...
+Oh, it should work a different way on mobile...
 
 ---
+
+class: center, middle
 
 # Wait, haven't I already done these things before?
 
 --
 
+![](http://media.giphy.com/media/XuBJvrKHutnkQ/giphy.gif)
+
 ## Yes I did
-
---
-
-## Several times...
-
---
-
-## Many times...
 
 ---
 
@@ -384,9 +371,22 @@ obj.respondTo('tablet', function(){
 ```
 
 ---
+
+class: center, middle
+
+### If you like the idea
+# Please contribute!
+
+![](http://media.giphy.com/media/FOszrFo26SlnG/giphy.gif)
+
+---
+
 class: center, middle
 
 ![](http://media.giphy.com/media/112Fjas8rghItO/giphy.gif)
+
+### github: github.com/zsotyooo/layback.js
+### docs: zsotyooo.github.io/layback.js
 
     </textarea>
     <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
