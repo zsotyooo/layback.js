@@ -1,5 +1,7 @@
 # layback.js
 
+![Layback.js](https://zsotyooo.github.io/layback.js/downloads/psd/logo-dark.png)
+
 As a developer I always kept reusability in mind.
 
 In my everyday work I kept facing the same issues when I had to create some simple javascript code:
@@ -181,7 +183,7 @@ layback('Creature', function(properties) {
     // You can set/overwrite some default observers here as well
     // It comes in handy when you have to do some pre calculations
     this.laybackCallbacks = {
-        'after-stop-walking': {
+        afterStopWalking': {
             toDo: function(obj, nextAction){// you can add more observers to the same event
                 obj.set('nextAction', nextAction);
             }
@@ -206,7 +208,7 @@ layback('Creature', function(properties) {
         legs: 0
     },
     callbacks: {
-        'after-start-walking': {
+        afterStartWalking': {
             canWalk: function(obj, data) {
                 if (obj.get('legs') == 0) {
                     obj.stopWalking('idling');
@@ -397,3 +399,108 @@ obj.respondTo('tablet', function(){
 });
 // below 760px> mobile:300, above 760px> tablet:900
 ```
+
+
+### JQuery plugin features
+You can create a jQuery plugin from your object using this treat.
+The idea behind this is either you provide an element to your object, or JQuery does it for you.
+If you call your plugin on multiple elements, an object will be created for each of them, so you can avoid the common mistake that your plugin works only with the same matching element.
+
+#### Added features
+* `getJqueryPluginObject(element)`: Its a class method. Meaning that you function will have this rather than you object. If you provide the `element` here you will get your object back.
+* `getJqueryPluginObjects(elements)`: Its a class method. Meaning that you function will have this rather than you object. If you provide the `element` here you will get an `Array` containing your objects.
+
+#### Example usage
+##### Javascript
+```javascript
+layback('SetTexTContent', function(properties) {
+        this.laybacy(properties);
+        this.getElement().html(this.get('text'));
+    })
+    .use('jQuery-plugin', 'setTextContent')
+    .make();
+```
+
+```HTML
+    <ul class="my-list">
+        <li></li>
+        <li setTextContent-options="{text:'Custom text'}"></li>
+        <li></li>
+    </ul>
+```
+##### HTML
+```javascript
+$('.my-list li').setTextContent({text: 'Just a text'});
+
+// Getting the objects back from the elements
+SetTexTContent.getJqueryPluginObject($('.my-list li')[0]); // SetTexTContent {...}
+SetTexTContent.getJqueryPluginObjects($('.my-list li')); // [SetTexTContent {...}, SetTexTContent {...}, SetTexTContent {...}]
+```
+##### Result
+```HTML
+    <ul class="my-list">
+        <li>Just a text</li>
+        <li setTextContent-options="{text:'Custom text'}">Custom text</li>
+        <li>Just a text</li>
+    </ul>
+```
+##### Using it without using it as a plugin
+```javascript
+// Notice that I had to provide the element as an option
+ var mySetTextObj = new SetTexTContent({text: 'Just a text', element: '.my-list li:eq(0)'});
+```
+
+## Writing you own treat
+It's really easy. You can create a function which accepts the target function, and custom data you can provide as the secon parameter of `use`. Let me show you through an example.
+#### Example logger treat
+
+```javascript
+var MyLoggerTreat = function(classObject, tratData) {
+    // Do You logic here ...
+    layback(classObject)
+        //By addInitMethod we can set some things to run when we call this.layback(properties);
+        .addInitMethod(function(obj){
+            // By adding a namespace we say here than we need the logger namespace, and from the options everything matches logger* will be copied to this namespace
+            obj.addNs('logger', {logs: []}, 'logger*');
+            obj.log('initialized');
+      })
+      .addMethod('log', function(text) {
+          if (this.laybackLogger.isEnabled) {
+                this.laybackLogger.logs.push([text, new Date]);
+                console.log(text, this, new Date);
+          }
+      })
+      .addMethod('getlogs', function(text) {
+          if (this.laybackLogger.isEnabled) {
+                return this.laybackLogger.logs;
+          }
+      });
+}
+//register your treat
+layback().treats().add(MyLoggerTreat, 'logger');
+```
+### Using it
+```javascript
+layback(Creature).use('logger').make();
+var creature = new Creature({loggerIsEnabled: true}); //> initialized, Creature {....}, Fri Mar 20 2015 17:31:30 GMT+0100 (CET)
+creature.log('Something'); //> 'Something', Creature {...}, Fri Mar 20 2015 17:31:30 GMT+0100 (CET)
+var creature2 = new Creature({loggerIsEnabled: false}); //> nothing
+creature2.log('Something'); //> nothing
+```
+
+# Layback still needs some polishing, fine tuning, and you.
+
+## Planned features:
+* Ajax requests made easy
+* Jasmine test coveradge (on the way)
+* Docblocks (Sorry for not having it yet)
+* Treat dependency
+* Plugins (replaceable objects with matching interfaces)
+* Messaging (using plugins)
+* Audio / Video
+* Picture element
+* Pager / list renderer
+
+If you'd like to contribute please contact me, or simply fork ;)
+Enjoy,
+Cheers
