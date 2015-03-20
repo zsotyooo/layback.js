@@ -1,5 +1,7 @@
 # layback.js
 
+![Layback.js](https://zsotyooo.github.io/layback.js/downloads/psd/logo-dark.png)
+
 As a developer I always kept reusability in mind.
 
 In my everyday work I kept facing the same issues when I had to create some simple javascript code:
@@ -181,7 +183,7 @@ layback('Creature', function(properties) {
     // You can set/overwrite some default observers here as well
     // It comes in handy when you have to do some pre calculations
     this.laybackCallbacks = {
-        'after-stop-walking': {
+        afterStopWalking': {
             toDo: function(obj, nextAction){// you can add more observers to the same event
                 obj.set('nextAction', nextAction);
             }
@@ -206,7 +208,7 @@ layback('Creature', function(properties) {
         legs: 0
     },
     callbacks: {
-        'after-start-walking': {
+        afterStartWalking': {
             canWalk: function(obj, data) {
                 if (obj.get('legs') == 0) {
                     obj.stopWalking('idling');
@@ -396,4 +398,54 @@ obj.respondTo('tablet', function(){
     );
 });
 // below 760px> mobile:300, above 760px> tablet:900
+```
+
+
+### JQuery plugin features
+You can create a jQuery plugin from your object using this treat.
+The idea behind this is either you provide an element to your object, or JQuery does it for you.
+If you call your plugin on multiple elements, an object will be created for each of them, so you can avoid the common mistake that your plugin works only with the same matching element.
+
+#### Added features
+* `getJqueryPluginObject(element)`: Its a class method. Meaning that you function will have this rather than you object. If you provide the `element` here you will get your object back.
+* `getJqueryPluginObjects(elements)`: Its a class method. Meaning that you function will have this rather than you object. If you provide the `element` here you will get an `Array` containing your objects.
+
+#### Example usage
+##### Javascript
+```javascript
+layback('SetTexTContent', function(properties) {
+        this.laybacy(properties);
+        this.getElement().html(this.get('text'));
+    })
+    .use('jQuery-plugin', 'setTextContent')
+    .make();
+```
+
+```HTML
+    <ul class="my-list">
+        <li></li>
+        <li setTextContent-options="{text:'Custom text'}"></li>
+        <li></li>
+    </ul>
+```
+##### HTML
+```javascript
+$('.my-list li').setTextContent({text: 'Just a text'});
+
+// Getting the objects back from the elements
+SetTexTContent.getJqueryPluginObject($('.my-list li')[0]); // SetTexTContent {...}
+SetTexTContent.getJqueryPluginObjects($('.my-list li')); // [SetTexTContent {...}, SetTexTContent {...}, SetTexTContent {...}]
+```
+##### Result
+```HTML
+    <ul class="my-list">
+        <li>Just a text</li>
+        <li setTextContent-options="{text:'Custom text'}">Custom text</li>
+        <li>Just a text</li>
+    </ul>
+```
+##### Using it without using it as a plugin
+```javascript
+// Notice that I had to provide the element as an option
+ var mySetTextObj = new SetTexTContent({text: 'Just a text', element: '.my-list li:eq(0)'});
 ```
