@@ -449,3 +449,58 @@ SetTexTContent.getJqueryPluginObjects($('.my-list li')); // [SetTexTContent {...
 // Notice that I had to provide the element as an option
  var mySetTextObj = new SetTexTContent({text: 'Just a text', element: '.my-list li:eq(0)'});
 ```
+
+## Writing you own treat
+It's really easy. You can create a function which accepts the target function, and custom data you can provide as the secon parameter of `use`. Let me show you through an example.
+#### Example logger treat
+
+```javascript
+var MyLoggerTreat = function(classObject, tratData) {
+    // Do You logic here ...
+    layback(classObject)
+        //By addInitMethod we can set some things to run when we call this.layback(properties);
+        .addInitMethod(function(obj){
+            // By adding a namespace we say here than we need the logger namespace, and from the options everything matches logger* will be copied to this namespace
+            obj.addNs('logger', {logs: []}, 'logger*');
+            obj.log('initialized');
+      })
+      .addMethod('log', function(text) {
+          if (this.laybackLogger.isEnabled) {
+                this.laybackLogger.logs.push([text, new Date]);
+                console.log(text, this, new Date);
+          }
+      })
+      .addMethod('getlogs', function(text) {
+          if (this.laybackLogger.isEnabled) {
+                return this.laybackLogger.logs;
+          }
+      });
+}
+//register your treat
+layback().treats().add(MyLoggerTreat, 'logger');
+```
+### Using it
+```javascript
+layback(Creature).use('logger').make();
+var creature = new Creature({loggerIsEnabled: true}); //> initialized, Creature {....}, Fri Mar 20 2015 17:31:30 GMT+0100 (CET)
+creature.log('Something'); //> 'Something', Creature {...}, Fri Mar 20 2015 17:31:30 GMT+0100 (CET)
+var creature2 = new Creature({loggerIsEnabled: false}); //> nothing
+creature2.log('Something'); //> nothing
+```
+
+# Layback still needs some polishing, fine tuning, and you.
+
+## Planned features:
+* Ajax requests made easy
+* Jasmine test coveradge (on the way)
+* Docblocks (Sorry for not having it yet)
+* Treat dependency
+* Plugins (replaceable objects with matching interfaces)
+* Messaging (using plugins)
+* Audio / Video
+* Picture element
+* Pager / list renderer
+
+If you'd like to contribute please contact me, or simply fork ;)
+Enjoy,
+Cheers
