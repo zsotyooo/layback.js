@@ -1,8 +1,19 @@
+class: center, middle
+
+# What is the eternal force that drives us to invent?
+
+---
 
 class: center, middle
 
-# layback.js
-### Dare to be lazy!
+![](http://www.returnofkings.com/wp-content/uploads/2014/10/albundy2.jpg)
+# Lazyness
+
+---
+
+class: center, middle
+
+![](../../../downloads/psd/logo-light.png)
 
 ---
 
@@ -10,45 +21,29 @@ class: center, top
 
 # Problems in everyday work
 
---
+I should be able to somehow pass settings to my object...
 
-* I should be able to somehow pass settings to my object...
+Reaching the dom objects would be nice...
 
---
+I should be able to use callbacks...
 
-* Reaching the dom objects would be nice...
+I can make it as a jQuery plugin with some extra work...
 
---
+I have items inside...
 
-* I should be able to use callback...
-
---
-
-* I can make it as a jQuery plugin with some extra work...
-
---
-
-* I have items inside...
-
---
-
-* Oh, it should work a different way on mobile...
+Oh, it should work a different way on mobile...
 
 ---
+
+class: center, top
 
 # Wait, haven't I already done these things before?
 
 --
 
+![](http://media.giphy.com/media/XuBJvrKHutnkQ/giphy.gif)
+
 ## Yes I did
-
---
-
-## Several times...
-
---
-
-## Many times...
 
 ---
 
@@ -204,8 +199,8 @@ layback(Creature)
 var creature = new Creature({
   containerElement: '.my-container'
 });
-creature.domBody(); // $('body')
-creature.domContainer(); // $('.my-container')
+creature.dom('body'); // $('body')
+creature.dom('container'); // $('.my-container')
 ```
 
 ---
@@ -216,7 +211,7 @@ creature.domContainer(); // $('.my-container')
 layback(Creature)
 .defaults({
     callbacks: {
-        'some-event': function(obj) {
+        someEvent: function(obj) {
           console.log(obj.get('blabla'))
       }
     }
@@ -226,7 +221,7 @@ layback(Creature)
 var creature = new Creature({
   // Note the 'on' prepended to the camelised event name!
   onSomeOtherEvent: function(obj) {
-      console.log(obj.get('!!!'))
+      console.log('!!!')
   }
 });
 
@@ -319,3 +314,52 @@ obj.respondTo('tablet', function(){
 });
 // below 760px> mobile:300, above 760px> tablet:900
 ```
+
+---
+
+class: center, middle
+
+# Introduction to layback
+## Write you own Treat
+
+---
+
+class: top, middle
+
+### Example logger treat
+
+```javascript
+var MyLoggerTreat = function(classObject, tratData) {
+  // Do You logic here ...
+  layback(classObject)
+      .addInitMethod(function(obj){
+          obj.log('initialized');
+      })
+      .addMethod('log', function(text) {
+          console.log(this, text);
+      });
+}
+layback().treats().add(MyLoggerTreat, 'logger');
+```
+### Using it
+```javascript
+layback(Creature).use('logger').make();
+var creature = new Creature; //> Creature {....}, initialized
+```
+---
+
+class: center, middle
+
+### If you like the idea
+# Please contribute!
+
+![](http://media.giphy.com/media/FOszrFo26SlnG/giphy.gif)
+
+---
+
+class: center, middle
+
+![](http://media.giphy.com/media/112Fjas8rghItO/giphy.gif)
+
+### github: github.com/zsotyooo/layback.js
+### docs: zsotyooo.github.io/layback.js

@@ -13,7 +13,7 @@
       h1, h2, h3 {
         font-family: 'Berkshire Swash';
         font-weight: normal;
-        text-shadow: -4px 0px 0px #a39a4a;
+        text-shadow: -2px 0px 0px #a39a4a;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       
@@ -80,7 +80,7 @@ I should be able to somehow pass settings to my object...
 
 Reaching the dom objects would be nice...
 
-I should be able to use callback...
+I should be able to use callbacks...
 
 I can make it as a jQuery plugin with some extra work...
 
@@ -90,7 +90,7 @@ Oh, it should work a different way on mobile...
 
 ---
 
-class: center, middle
+class: center, top
 
 # Wait, haven't I already done these things before?
 
@@ -254,8 +254,8 @@ layback(Creature)
 var creature = new Creature({
   containerElement: '.my-container'
 });
-creature.domBody(); // $('body')
-creature.domContainer(); // $('.my-container')
+creature.dom('body'); // $('body')
+creature.dom('container'); // $('.my-container')
 ```
 
 ---
@@ -276,7 +276,7 @@ layback(Creature)
 var creature = new Creature({
   // Note the 'on' prepended to the camelised event name!
   onSomeOtherEvent: function(obj) {
-      console.log(obj.get('!!!'))
+      console.log('!!!')
   }
 });
 
@@ -370,6 +370,37 @@ obj.respondTo('tablet', function(){
 // below 760px> mobile:300, above 760px> tablet:900
 ```
 
+---
+
+class: center, middle
+
+# Introduction to layback
+## Write you own Treat
+
+---
+
+class: top, middle
+
+### Example logger treat
+
+```javascript
+var MyLoggerTreat = function(classObject, tratData) {
+  // Do You logic here ...
+  layback(classObject)
+      .addInitMethod(function(obj){
+          obj.log('initialized');
+      })
+      .addMethod('log', function(text) {
+          console.log(this, text);
+      });
+}
+layback().treats().add(MyLoggerTreat, 'logger');
+```
+### Using it
+```javascript
+layback(Creature).use('logger').make();
+var creature = new Creature; //> Creature {....}, initialized
+```
 ---
 
 class: center, middle
