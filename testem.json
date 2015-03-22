@@ -1,0 +1,14 @@
+{
+  "framework": "mocha+chai",
+  "src_files": [
+    "node_modules/jQuery/dist/jquery.js",
+    "node_modules/sinon/pkg/sinon.js",
+    "layback.js",
+    "spec/setup.js",
+    "spec/*.test.js"
+  ],
+  "launch_in_dev": [
+    "chrome",
+    "firefox"
+  ]
+}

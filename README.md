@@ -492,7 +492,7 @@ creature2.log('Something'); //> nothing
 
 ## Planned features:
 * Ajax requests made easy
-* Jasmine test coveradge (on the way)
+* Mocha test coverage (on the way)
 * Docblocks (Sorry for not having it yet)
 * Treat dependency
 * Plugins (replaceable objects with matching interfaces)

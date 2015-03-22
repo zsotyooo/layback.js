@@ -1,10 +1,10 @@
 module.exports = function(grunt) {
     var jsFiles = [
-        'js/src/lib/*.js',
-        'js/src/tools/*.js',
-        'js/src/core/Layback.js',
-        'js/src/treats/system/*.js',
-        'js/src/treats/*.js'
+        'src/lib/*.js',
+        'src/tools/*.js',
+        'src/core/Layback.js',
+        'src/treats/system/*.js',
+        'src/treats/*.js'
     ];
 
     grunt.initConfig({
@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
         var: {
             packageName: 'layback',
-            version: '0.1.0'
+            version: '0.1.1'
         },
         uglify: {
             min: {
@@ -22,7 +22,8 @@ module.exports = function(grunt) {
                     beautify: false
                 },
                 files: {
-                    'js/layback.<%= var.version %>.min.js': jsFiles
+                    'dist/layback.<%= var.version %>.min.js': jsFiles,
+                    'layback.min.js': jsFiles
                 }
             },
             dev: {
@@ -33,7 +34,8 @@ module.exports = function(grunt) {
                     preserveComments: 'some'
                 },
                 files: {
-                    'js/layback.<%= var.version %>.js': jsFiles
+                    'dist/layback.<%= var.version %>.js': jsFiles,
+                    'layback.js': jsFiles
                 }
             }
         },

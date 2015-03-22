@@ -1,10 +1,33 @@
 {
-    "name": "layback.js",
-    "version": "0.1.0",
-    "dependencies": {},
-    "devDependencies": {
-        "grunt": "0.4.5",
-        "grunt-contrib-uglify": "0.6.0",
-        "grunt-contrib-watch": "0.6.1"
+  "name": "layback.js",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/zsotyooo/layout.js.git"
+  },
+  "author": {
+    "name": "Zsolt Molnár"
+  },
+  "bugs": {
+    "url": "http://github.com/zsotyooo/layout.js"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/zsotyooo/layout.js/blob/master/LICENSE"
     }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "grunt": "0.4.5",
+    "grunt-contrib-uglify": "0.6.0",
+    "grunt-contrib-watch": "0.6.1",
+    "mocha": "^2.2.1",
+    "sinon": "^1.14.1",
+    "testem": "^0.7.5"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/testem"
+  }
 }

@@ -111,12 +111,15 @@ window.matchMedia || (window.matchMedia = function() {
     "use strict";
     var _o = window.laybackTools.objectWrapper, _s = window.laybackTools.stringWrapper;
     var Layback = function() {
-        if (arguments[0] && !arguments[1]) {
+        if (arguments[0]) {
             if (typeof arguments[0] == "function") {
                 return new Layback.Class(arguments[0]);
             }
-            if (typeof arguments[0] == "object") {
+            if (typeof arguments[0] == "object" && !arguments[1]) {
                 return new Layback.Object(arguments[0]);
+            }
+            if (typeof arguments[0] == "object" && arguments[1]) {
+                return new Layback.Object(arguments[0], arguments[1]);
             }
         }
         if (arguments[0] && arguments[1]) {
@@ -144,6 +147,9 @@ window.matchMedia || (window.matchMedia = function() {
         this.defaults = function(data) {
             _getClassHandler().setDefaults(data);
             return this;
+        };
+        this.getDefaults = function(data) {
+            return _getClassHandler().getDefaults(data);
         };
         this.addInitMethod = function(initMethod) {
             _getClassHandler().addInitMethod(initMethod);
@@ -174,9 +180,13 @@ window.matchMedia || (window.matchMedia = function() {
                 defaultData: {},
                 treats: {},
                 initMethods: {},
-                appliedTreats: {}
+                appliedTreats: {},
+                methods: {},
+                classMethods: {}
             };
-            return this;
+            Layback.Factory.systemTreats().each(function(treatName, treatData) {
+                This.addTreat(treatName, treatData);
+            });
         };
         this.make = function() {
             var This = this;
@@ -189,19 +199,15 @@ window.matchMedia || (window.matchMedia = function() {
                 }
                 return this.__layback.laybackObject;
             });
-            Layback.Factory.systemTreats().each(function(treatName, treatData) {
-                This.applyTreat(treatName, treatData);
-            });
             _o(_classObject.__layback.treats).each(function(treatName, treatData) {
                 This.applyTreat(treatName, treatData);
             });
-            return this;
         };
         this.addInitMethod = function(initMethod) {
             _o(_classObject.__layback.initMethods).add(initMethod);
         };
-        this.addTreat = function(treatName, TreatData) {
-            _o(_classObject.__layback.treats).add(TreatData, treatName);
+        this.addTreat = function(treatName, treatData) {
+            _o(_classObject.__layback.treats).add(treatData, treatName);
         };
         this.applyTreat = function(treatName) {
             var TreatClass = Layback.Treats.getTreat(treatName);
@@ -212,15 +218,25 @@ window.matchMedia || (window.matchMedia = function() {
             _classObject.__layback.defaultData = data;
         };
         this.getDefaults = function() {
-            return _classObject.__layback.defaultData || {};
+            return _classObject.__layback.defaultData;
         };
         this.addMethod = function(methodName, method, forced) {
-            if (forced || !_classObject.prototype[methodName]) {
+            forced = !!forced;
+            if (!forced && (_classObject.prototype[methodName] || _classObject.__layback.methods[methodName])) {
+                throw new Error("The method already exists! Try using some other name, or use the forced parameter!");
+            }
+            if (forced || !(_classObject.prototype[methodName] || _classObject.__layback.methods[methodName])) {
+                _classObject.__layback.methods[methodName] = method;
                 _classObject.prototype[methodName] = method;
             }
         };
         this.addClassMethod = function(methodName, method, forced) {
-            if (forced || !_classObject[methodName]) {
+            forced = !!forced;
+            if (!forced && (_classObject[methodName] || _classObject.__layback.classMethods[methodName])) {
+                throw new Error("The method already exists! Try using some other name, or use the forced parameter!");
+            }
+            if (forced || !(_classObject[methodName] || _classObject.__layback.classMethods[methodName])) {
+                _classObject.__layback.classMethods[methodName] = method;
                 _classObject[methodName] = method;
             }
         };
@@ -230,7 +246,7 @@ window.matchMedia || (window.matchMedia = function() {
     };
     Layback.ClassCreator = function(methodName, method) {
         window[methodName] = method;
-        return new Layback.LaybackClass(window[methodName]);
+        return new Layback.Class(window[methodName]);
     };
     Layback.Object = function(obj, options) {
         this.r = Math.random();
@@ -253,6 +269,9 @@ window.matchMedia || (window.matchMedia = function() {
             _getObjectHandler().addNs(key, data, pattern);
             return this;
         };
+        this.getNs = function(key) {
+            return _getObjectHandler().getNs(key);
+        };
         if (_obj.__layback) {
             return _obj.__layback.laybackObject;
         }
@@ -272,7 +291,6 @@ window.matchMedia || (window.matchMedia = function() {
         };
         this.setOptions = function(options) {
             _options = options;
-            return this;
         };
         this.getOptions = function() {
             return _options;
@@ -293,7 +311,11 @@ window.matchMedia || (window.matchMedia = function() {
                 });
             }
             _obj[keyInObj] = $.extend(true, {}, defaults, _obj[keyInObj], argData, data);
-            return this;
+        };
+        this.getNs = function(key) {
+            var keyInObj = "layback" + key.charAt(0).toUpperCase() + key.slice(1);
+            _obj[keyInObj] = _obj[keyInObj] || {};
+            return _obj[keyInObj];
         };
         if (!_obj.__layback) {
             this.init();
@@ -330,7 +352,7 @@ window.matchMedia || (window.matchMedia = function() {
             if (!obj.__layback.id) {
                 throw new Error("Object has No ID");
             } else {
-                delete this._pool.del(obj.__layback.id);
+                this._pool.del(obj.__layback.id);
             }
             return this;
         }
