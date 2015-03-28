@@ -11,7 +11,7 @@ describe('The layback function', function() {
 	When I call layback on my function
 		Then It should return the same object
 	 */
-	describe('The user passes only a function as an argument', function() {
+	context('The user passes only a function as an argument', function() {
 		// Given I have a function
 		var MyFunc = function(){},
 			myFuncLayback;
@@ -20,7 +20,7 @@ describe('The layback function', function() {
 			myFuncLayback = layback(MyFunc).make();
 		});
 
-		context('When I pass my function as an only argument to layback', function() {
+		describe('When I pass my function as an only argument to layback', function() {
 
 			it("it should add a method called 'layback' to my function", function() {
 				expect(MyFunc).to.have.property('layback');
@@ -51,7 +51,7 @@ describe('The layback function', function() {
 		Then It should create a function with the name on the name provided
 			And layback should be applied to the function
 	 */
-	describe('The user passes a function name and a function as the arguments', function() {
+	context('The user passes a function name and a function as the arguments', function() {
 		var myCreatedFuncLayback;
 
 		// Given I don't have a function yet
@@ -60,7 +60,7 @@ describe('The layback function', function() {
 			myCreatedFuncLayback = layback('MyCreatedFunc', function(){}).make();
 		});
 
-		context('When I pass a function name, and a function to layback', function() {
+		describe('When I pass a function name, and a function to layback', function() {
 
 			it('it should create a function with the name on the name provided', function() {
 				expect(window.MyCreatedFunc).not.to.be.undefined;
@@ -90,7 +90,7 @@ describe('The layback function', function() {
 			And this object should contain the system treats
 			And this object should contain the object pool
 	 */
-	describe('The user passes no arguments to layback', function() {
+	context('The user passes no arguments to layback', function() {
 		var laybackGlobalAccess;
 
 		// Given I'd like to use the globally accessable features of layback
@@ -98,7 +98,7 @@ describe('The layback function', function() {
 			laybackGlobalAccess = layback();
 		});
 
-		context('When I pass no parameters to layback', function() {
+		describe('When I pass no parameters to layback', function() {
 
 			it('It should return an object with layback features', function() {
 				expect(laybackGlobalAccess).to.be.an('Object');
@@ -125,7 +125,7 @@ describe('The layback function', function() {
 	And When I call layback on my instance again
 		Then it should return the same object
 	 */
-	 describe('The user passes an object as the first argumnet', function() {
+	 context('The user passes an object as the first argumnet', function() {
 		// Given I have a function
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -142,7 +142,7 @@ describe('The layback function', function() {
 			myObjLayback = layback(myObj);
 		});
 
-		context('When I call layback on my instance', function() {
+		describe('When I call layback on my instance', function() {
 
 			it("It should return an object", function() {
 				expect(myObjLayback).to.be.an('Object');
@@ -156,13 +156,13 @@ describe('The layback function', function() {
 			});
 		});
 
-		context('When I call instance.layback', function() {
+		describe('When I call instance.layback', function() {
 			it("it should return the same object", function() {
 				expect(myObj.layback()).to.be.equal(myObjLayback);
 			});
 		});
 
-		context('When I call layback on my instance again', function() {
+		describe('When I call layback on my instance again', function() {
 
 			it("it should return the same object", function() {
 				expect(layback(myObj)).to.be.equal(myObjLayback);

@@ -9,7 +9,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 		And I call layback on my object
 			Then the function should be called with an argument which is the instance itself
 	 */
-	describe('The user adds an init method to his function', function() {
+	context('The user adds an init method to his function', function() {
 
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -30,7 +30,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			myObjLayback = layback(myObj);
 		});
 
-		context('When I call layback on my instance', function() {
+		describe('When I call layback on my instance', function() {
 
 			it("the function should be called with an argument which is the instance itself", function() {
 				expect(initMethod.firstCall.calledWith(myObj)).to.be.true;
@@ -48,7 +48,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 	When I call addClassMethod with the same function name, and a third parameter forced=true
 		Then a method should be added to my function with the name of function name which is the function
 	 */
-	describe('The user adds a method to his function', function() {
+	context('The user adds a method to his function', function() {
 
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -64,7 +64,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 				.make();
 		});
 
-		context('When I call addClassMethod with a function name and a function as arguments on the layback object', function() {
+		describe('When I call addClassMethod with a function name and a function as arguments on the layback object', function() {
 			
 			it("a method should be added to my function with the name of function name which is the function", function() {
 				expect(MyFunc).to.have.property('testClassMethod');
@@ -73,7 +73,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			});
 		});
 
-		context('When I call addClassMethod with the same function name', function() {
+		describe('When I call addClassMethod with the same function name', function() {
 			
 			it("i should get an exception", function() {
 				expect(function() {
@@ -82,7 +82,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			});
 		});
 
-		context('When I call addClassMethod with the same function name, and a third parameter forced=true', function() {
+		describe('When I call addClassMethod with the same function name, and a third parameter forced=true', function() {
 			var overWrittenClassMethod = sinon.spy();
 			it("a method should be added to my function with the name of function name which is the function", function() {
 				myFuncLayback.addClassMethod('testClassMethod', overWrittenClassMethod, true);
@@ -102,7 +102,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 	When I call addMethod with the same function name, and a third parameter forced=true
 		Then a method should be added to my function's prototype with the name of function name which is the function
 	 */
-	describe('The user adds a method to his function instances', function() {
+	context('The user adds a method to his function instances', function() {
 
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -122,7 +122,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			myObjLayback = layback(myObj);
 		});
 
-		context("When I call addMethod with a function name and a function as arguments on the layback object", function() {
+		describe("When I call addMethod with a function name and a function as arguments on the layback object", function() {
 			
 			it("a method should be added to my function's prototype with the name of function name which is the function", function() {
 				expect(myObj).to.have.property('testMethod');
@@ -131,7 +131,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			});
 		});
 
-		context('When I call addMethod with the same function name', function() {
+		describe('When I call addMethod with the same function name', function() {
 			
 			it("i should get an exception", function() {
 				expect(function() {
@@ -140,7 +140,7 @@ describe('The layback method addition (addMethod, addInitMethod, addClassMethod)
 			});
 		});
 
-		context('When I call addMethod with the same function name, and a third parameter forced=true', function() {
+		describe('When I call addMethod with the same function name, and a third parameter forced=true', function() {
 			var overWrittenMethod = sinon.spy();
 			it("a method should be added to my function with the name of function name which is the function", function() {
 				myFuncLayback.addMethod('testMethod', overWrittenMethod, true);
