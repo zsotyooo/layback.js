@@ -9,7 +9,7 @@ describe('The layback namespaces (defaults, addNs, getNs)', function() {
 	When I call getDefaults on my layback object
 		Then I should get the default Values back
 	 */
-	describe('The user adds default data to his function', function() {
+	context('The user adds default data to his function', function() {
 
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -25,7 +25,7 @@ describe('The layback namespaces (defaults, addNs, getNs)', function() {
 				.make();
 		});
 
-		context('When I call getDefaults on my layback object', function() {
+		describe('When I call getDefaults on my layback object', function() {
 			
 			it("i should get the dafault values back", function() {
 				expect(myFuncLayback.getDefaults()).to.be.equal(defaultsValues);
@@ -43,7 +43,7 @@ describe('The layback namespaces (defaults, addNs, getNs)', function() {
 		I should get an object back with the dafault values' data at the key of namespace name, owerwritten by the data parameter of the addNs function
 		I should have the same same object as a property of my instance, under the key of layback + ucfirst namespace name 
 	 */
-	describe('The user adds default data to his function', function() {
+	context('The user adds default data to his function', function() {
 
 		var MyFunc = function(){},
 			myFuncLayback,
@@ -76,7 +76,7 @@ describe('The layback namespaces (defaults, addNs, getNs)', function() {
 			myObjLayback.addNs('testNamespace', nsUserValues);
 		});
 
-		context("When I call getNs on my instance's layback object with the same namespace name", function() {
+		describe("When I call getNs on my instance's layback object with the same namespace name", function() {
 			
 			it("I should get an object back with the dafault values' data at the key of namespace name, owerwritten by the data parameter of the addNs function", function() {
 				expect(myObjLayback.getNs('testNamespace')).to.be.deep.equal({
@@ -93,8 +93,6 @@ describe('The layback namespaces (defaults, addNs, getNs)', function() {
 					value3: 1
 				});
 			});
-
-			
 		});
 	});
 
