@@ -6,13 +6,15 @@ module.exports = function(grunt) {
         'src/treats/system/*.js',
         'src/treats/*.js'
     ];
+    
+    var packageInfo = grunt.file.readJSON('package.json');
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: packageInfo,
 
         var: {
             packageName: 'layback',
-            version: '0.1.1'
+            version: packageInfo.version
         },
         uglify: {
             min: {
@@ -22,8 +24,8 @@ module.exports = function(grunt) {
                     beautify: false
                 },
                 files: {
-                    'dist/layback.<%= var.version %>.min.js': jsFiles,
-                    'layback.min.js': jsFiles
+                    'dist/<%= var.packageName %>.<%= var.version %>.min.js': jsFiles,
+                    '<%= var.packageName %>.min.js': jsFiles
                 }
             },
             dev: {
@@ -34,8 +36,8 @@ module.exports = function(grunt) {
                     preserveComments: 'some'
                 },
                 files: {
-                    'dist/layback.<%= var.version %>.js': jsFiles,
-                    'layback.js': jsFiles
+                    'dist/<%= var.packageName %>.<%= var.version %>.js': jsFiles,
+                    '<%= var.packageName %>.js': jsFiles
                 }
             }
         },
