@@ -15,7 +15,7 @@
             layback(This._class)
             	.addMethod(methodName, function(value){
             		return this.set(key, value);
-            	});
+            	}, true);
         };
 
         this.createGetterMethod = function(obj, key) {
@@ -23,15 +23,15 @@
             layback(This._class)
             	.addMethod(methodName, function(def){
             		return this.get(key, def);
-            	});
+            	}, true);
         };
 
 
 		layback(classObject)
 			.addInitMethod(function(obj) {
 				$.each(obj.laybackData, function(key, value) {
-					This.createGetterMethod(obj, key, true);
-					This.createSetterMethod(obj, key, true);
+					This.createGetterMethod(obj, key);
+					This.createSetterMethod(obj, key);
 				});
 			}
 		);
