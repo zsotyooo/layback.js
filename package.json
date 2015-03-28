@@ -1,6 +1,6 @@
 {
   "name": "layback.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/zsotyooo/layout.js.git"
@@ -23,6 +23,7 @@
     "grunt": "0.4.5",
     "grunt-contrib-uglify": "0.6.0",
     "grunt-contrib-watch": "0.6.1",
+    "jquery": "^2.1.3",
     "mocha": "^2.2.1",
     "sinon": "^1.14.1",
     "testem": "^0.7.5"

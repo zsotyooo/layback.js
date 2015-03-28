@@ -1,7 +1,7 @@
 {
   "framework": "mocha+chai",
   "src_files": [
-    "node_modules/jQuery/dist/jquery.js",
+    "node_modules/jquery/dist/jquery.js",
     "node_modules/sinon/pkg/sinon.js",
     "layback.js",
     "spec/setup.js",
