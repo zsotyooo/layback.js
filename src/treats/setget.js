@@ -30,8 +30,8 @@
 		layback(classObject)
 			.addInitMethod(function(obj) {
 				$.each(obj.laybackData, function(key, value) {
-					This.createGetterMethod(obj, key);
-					This.createSetterMethod(obj, key);
+					This.createGetterMethod(obj, key, true);
+					This.createSetterMethod(obj, key, true);
 				});
 			}
 		);
