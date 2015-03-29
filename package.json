@@ -1,6 +1,6 @@
 {
   "name": "layback.js",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "repository": {
     "type": "git",
     "url": "http://github.com/zsotyooo/layout.js.git"
@@ -11,6 +11,8 @@
   "bugs": {
     "url": "http://github.com/zsotyooo/layout.js"
   },
+  "keywords": ["javascript", "library", "framework", "treat", "responsive", "jquery plugin", "collection", "observer", "setter", "getter", "dom"],
+  "description": "Layback is a lightweight javascript framework, allowing you to enpower your classes with different properties. You can use observers, getters, setters, dom access, jquery pluginiser, collection, and responsiveness. But more importantly you can write your own, reusable features.",
   "licenses": [
     {
       "type": "MIT",
