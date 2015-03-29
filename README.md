@@ -1,6 +1,8 @@
 # layback.js
 
-![Layback.js](https://zsotyooo.github.io/layback.js/downloads/psd/logo-dark.png)
+![Layback.js](https://zsotyooo.github.io/layback.js/downloads/psd/logo-dark-bg-small.png)
+
+[![NPM](https://nodei.co/npm/layback.js.png)](https://nodei.co/npm/layback.js/)
 
 As a developer I always kept reusability in mind.
 
@@ -39,6 +41,10 @@ layback(MyClass) // At this pont I have data access, observer implementation, an
 ```
 
 # Documentation
+
+Layback is a lightweight javascript "framework", allowing you to enpower your classes with different properties.
+You can use observers, getters, setters, dom access, jquery pluginiser, collection, and responsiveness.
+But more importantly you can write your own, reusable features.
 
 ## Applying layback to your functions
 There are two ways to apply the layback features to your function.
@@ -492,7 +498,6 @@ creature2.log('Something'); //> nothing
 
 ## Planned features:
 * Ajax requests made easy
-* Mocha test coverage (on the way)
 * Docblocks (Sorry for not having it yet)
 * Treat dependency
 * Plugins (replaceable objects with matching interfaces)
@@ -501,6 +506,14 @@ creature2.log('Something'); //> nothing
 * Picture element
 * Pager / list renderer
 
-If you'd like to contribute please contact me, or simply fork ;)
-Enjoy,
-Cheers
+# Downloads
+* [Minified](https://github.com/zsotyooo/layback.js/blob/master/layback.min.js "Minified version")
+* [Full](https://github.com/zsotyooo/layback.js/blob/master/layback.js "Full version")
+
+# Credits:
+* Paul Irish for the matchMedia polyfill. [matchMedia.js](https://github.com/paulirish/matchMedia.js/ "matchMedia.js")
+
+#### Wanna contribute?
+* Create bug tickets!
+* Just fork and make pull requests!
+* Create treats!
