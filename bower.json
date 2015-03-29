@@ -1,0 +1,34 @@
+{
+  "name": "layback.js",
+  "main": "layback.js",
+  "version": "0.1.5",
+  "homepage": "https://github.com/zsotyooo/layback.js",
+  "authors": [
+    "Zsolt Molnar <zsolt@inviqa.com>"
+  ],
+  "description": "Layback.js is a lightweight javascript framework, allowing you to enpower your classes with different properties. You can use observers, getters, setters, dom access, jquery pluginiser, collection, and responsiveness. But more importantly you can write your own, reusable features.",
+  "keywords": [
+    "javascript",
+    "library",
+    "framework",
+    "treat",
+    "responsive",
+    "jquery",
+    "plugin",
+    "collection",
+    "observer",
+    "setter",
+    "getter",
+    "dom"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "dependencies": {
+    "jquery": "latest"
+  }
+}
