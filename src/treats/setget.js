@@ -39,4 +39,4 @@
 
 	layback().treats().add(SetGetTreat, 'setget');
 
-})($);
+})(jQuery);

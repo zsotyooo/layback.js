@@ -25,4 +25,4 @@
 
 	layback().systemTreats().add(DomTreat, 'dom');
 
-})($);
+})(jQuery);

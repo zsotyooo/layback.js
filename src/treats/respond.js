@@ -92,4 +92,4 @@
 
 	layback().treats().add(ResponsiveTreat, 'respond');
 
-})($);
+})(jQuery);

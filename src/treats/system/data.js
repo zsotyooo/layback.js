@@ -22,4 +22,4 @@
 
 	layback().systemTreats().add(DataTreat, 'data');
 
-})($);
+})(jQuery);

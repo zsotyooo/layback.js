@@ -398,7 +398,7 @@ window.matchMedia || (window.matchMedia = function() {
         });
     };
     layback().systemTreats().add(DataTreat, "data");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -417,7 +417,7 @@ window.matchMedia || (window.matchMedia = function() {
         });
     };
     layback().systemTreats().add(DomTreat, "dom");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -449,7 +449,7 @@ window.matchMedia || (window.matchMedia = function() {
         });
     };
     layback().systemTreats().add(EventTreat, "event");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -534,7 +534,7 @@ window.matchMedia || (window.matchMedia = function() {
         });
     };
     layback().treats().add(CollectionTreat, "collection");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -581,7 +581,7 @@ window.matchMedia || (window.matchMedia = function() {
         }
     };
     layback().treats().add(JqPluginTreat, "jQuery-plugin");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -668,7 +668,7 @@ window.matchMedia || (window.matchMedia = function() {
         }
     });
     layback().treats().add(ResponsiveTreat, "respond");
-})($);
+})(jQuery);
 
 (function($) {
     "use strict";
@@ -696,4 +696,4 @@ window.matchMedia || (window.matchMedia = function() {
         });
     };
     layback().treats().add(SetGetTreat, "setget");
-})($);
+})(jQuery);
