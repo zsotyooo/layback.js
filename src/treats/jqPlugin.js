@@ -64,4 +64,4 @@
 
 	layback().treats().add(JqPluginTreat, 'jQuery-plugin');
 
-})($);
+})(jQuery);

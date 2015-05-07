@@ -110,4 +110,4 @@
 
 	layback().treats().add(CollectionTreat, 'collection');
 
-})($);
+})(jQuery);

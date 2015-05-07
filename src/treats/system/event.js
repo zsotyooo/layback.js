@@ -40,4 +40,4 @@
 
 	layback().systemTreats().add(EventTreat, 'event');
 
-})($);
+})(jQuery);
